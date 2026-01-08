@@ -1,0 +1,226 @@
+<!doctype html><!--Tells the browser this is an html document-->
+<html lang="en"><!--Sets the language to English after opening the HTML element-->
+<head><!--The <head> contains metadata, stylesheets, scripts, and the title — things that configure the page but aren’t displayed as content.-->
+  <meta charset="UTF-8"><!--Sets the character encoding to UTF-8, which supports most characters from all languages.-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--Ensures compatibility with Internet Explorer by using the latest rendering engine(edge).-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--Sets the viewport to the device's width and initial zoom level, making the page responsive on mobile devices.-->
+  
+  <!-- Tailwind CSS -->
+  <link href="./output.css" rel="stylesheet"><!--Loads the compiled Tailwind CSS file. Tailwind generates this CSS after processing your project.-->
+  <link rel="stylesheet" href="./css/main.css"><!--Loads a custom CSS file where you can override Tailwind styles or add your own.-->
+  
+  <title>AscendShip</title>
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <nav class="p-4">
+
+    <!-- Navbar Section -->
+    <section id="menu">
+      <div class="fixed top-0 left-0 w-full z-50 bg-grey2 bg-opacity-80 shadow-lg">
+        <div class="flex items-center justify-between px-8 py-2 text-white text-base font-medium">
+      
+          <!-- Logo -->
+          <div>
+            <img src="images/logo.png" alt="Logo" class="w-36 h-auto" href="index.html">
+          </div>
+        
+          <!-- Menu Items -->
+          <div class="hidden md:flex space-x-12">
+            <a href="Internships.html" class="hover:text-violet-400">Internships</a>
+            <a href="Jobs.html" class="hover:text-violet-400">Jobs</a>
+            <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
+            <a href="Events.html" class="hover:text-violet-400">Events</a>
+            <a href="Community.html" class="hover:text-violet-400">Community</a>
+          </div>
+
+          <!-- Button -->
+          <div class="hidden md:block">
+            <a href="Get-Started.html" class="px-6 py-2 text-white bg-purple2 rounded-full hover:bg-darkPurple2 hover:font-bold">Get Started</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+
+    <!-- Flex Container -->
+    <div class="container flex flex-col-reverse md:flex-row md:items-start justify-between px-6 mx-auto mt-10 space-y-0 md:space-y-0">
+
+      <!-- Left Item -->
+      <div>
+        <div class="flex-col mb-32 pt-28 space-y-12 md:w-1/2">
+          <h1 class="ml-10 max-w-4xl text-4xl font-bold text-left md:text-5xl md:textleft">Bringing new opportunities to grow your career</h1>
+          <p class="max-w-sm ml-10 text-left text-lightPink2 md:text-left">Discover internships and jobs tailored for you. Start your journey with top tech companies. Find your next step in the IT industry.</p>
+          <div class="flex justify-center md:justify-start">
+            <!-- Button -->
+            <a href="Get-Started.html" class="px-6 pt-2 pb-2 top-4 mt-[-10px] text-white bg-purple2 rounded-full baseline hover:bg-darkPurple2 hover: font-bold transition-colors duration-200">Get Started</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image container -->
+      <div class="hidden md:flex flex-col items-center space-y-4 ml-[-40px]">
+
+        <!-- Top row: party and butterfly-->
+        <div class="flex space-x-4 items-start">
+
+          <!-- Party Image -->
+          <img src="images/party.jpg" style="width: 500px; height: 500px;" class="rounded-lg shadow-lg" />
+
+          <!-- Butterfly with vertical offset -->
+          <div class="mt-32">
+            <img src="images/butterfly.png" style="width: 400px; height: 300px;" class="rounded-lg shadow-lg" />
+          </div>
+        </div>
+
+        <!-- Bottom row: hired image with clear spacing -->
+        <div class="mt-32 ml-12 flex justify-center">
+          <img src="images/hired.jpg" alt="Hired" class="w-64 h-64 rounded-lg shadow-lg" />
+        </div>
+
+      </div>
+
+    </div>
+    <div class="hidden md:flex flex-col items-start ml-[-40px]"></div>
+  </section>
+
+
+  <!-- Flex container-->
+  <div class="container flex flex-col px-4 mx-auto mt-0 space-y-12 md:space-y-0 md:flex-row">
+    <!-- What's different -->
+    <div>
+      <div class="flex flex-col space-y-6 md:w-3/2 mt-16">
+        <h2 class="max-w-8xl text-4xl font-bold text-center md:text-left">What's different about AscendShip?</h2>
+        <p class="max-w-4xl text-center text-lightPink2 md:text-left"> Our platform connects you with real opportunities that align with your skills, goals, and passions. Whether you're a student, graduate, or early professional, we’ve gathered top internships and jobs from leading tech companies — so you can focus on growing your career and making your mark in the industry.</p>
+      </div>
+    </div>
+
+
+    <!-- Features Section -->
+    <section id="features" class="pt-12 md:pt-20">
+      <!-- Numbered List Container -->
+      <div class="flex flex-col space-y-8 md:w-[60%] ml-12 -mt-12">
+
+        <!-- First Point -->
+        <div class="flex flex-row items-center space-x-4">
+          <div class="px-4 py-2 text-white rounded-full bg-darkPurple2">01</div>
+          <h3 class="text-base font-bold">Personalized Career Matching</h3>
+        </div>
+        <p class="text-sm text-gray-300 ml-12">We match internships and jobs tailored to your skills and interests, helping you grow faster and smarter in tech.</p>
+
+        <!-- Second Point -->
+        <div class="flex flex-row items-center space-x-4">
+          <div class="px-4 py-2 text-white rounded-full bg-darkPurple2">02</div>
+          <h3 class="text-base font-bold">Built for Early-Career Talent in Tech</h3>
+        </div>
+        <p class="text-sm text-gray-300 ml-12">Unlike other platforms that cater mainly to experienced professionals, AscendShip is specifically designed for students, recent graduates, and career switchers in IT.</p>
+
+        <!-- Third Point -->
+        <div class="flex flex-row items-center space-x-4">
+          <div class="px-4 py-2 text-white rounded-full bg-darkPurple2">03</div>
+          <h3 class="text-base font-bold">Community & Mentorship at the Core</h3>
+        </div>
+        <p class="text-sm text-gray-300 ml-12">AscendShip doesn't just post jobs — it builds careers through mentorship, Q&A sessions, and industry events.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Testimonials -->
+<section id="testimonials">
+  <div class="max-w-6xl px-5 mx-auto mt-32 text-center">
+    <!-- Heading -->
+    <h2 class="text-4xl font-bold text-center">What our users say</h2>
+    <!-- Testimonials Container -->
+    <div class="flex flex-col mt-24 md:flex-row md:space-x-6 justify-center items-center">
+      <!-- Testimonial 1-->
+      <div class="flex flex-col items-center p-6 space-y-4 lg:bg-brightPurple2 rounded-lg shadow-lg">
+        <img src="images/user1.jpeg" alt="User 1" class="w-48 h-60 rounded-full">
+        <h3 class="text-lg font-bold text-white px-4 py-1">Maya Thompson</h3>
+        <p class="text-sm rounded-full text-gray-400">“I was overwhelmed by generic job boards until I found AscendShip. They actually get what early-career tech professionals need. Within weeks, I had interviews lined up with companies that matched my goals and skills.”</p>
+      </div>
+
+      <!-- Testimonial 2-->
+      <div class="flex flex-col items-center p-6 space-y-4 lg:bg-brightPurple2 rounded-lg shadow-lg">
+        <img src="images/user2.jpeg" alt="User 2" class="w-48 h-56 rounded-full">
+        <h3 class="text-lg font-semibold">Anika Desai</h3>
+        <p class="text-sm text-gray-400">“What sets AscendShip apart is the community. Beyond job listings, it’s a space where you can learn, grow, and connect with mentors. I never felt like just another resume — I felt seen.”</p>
+      </div>
+
+      <!-- Testimonial 3-->
+      <div class="flex flex-col items-center p-6 space-y-4 lg:bg-brightPurple2 rounded-lg shadow-lg">
+        <img src="images/user3.jpeg" alt="User 3" class="w-48 h-60 rounded-full">
+        <h3 class="text-lg font-semibold">Elias Novak</h3>
+        <p class="text-sm text-gray-400">“AscendShip helped me land my very first internship at a fast-growing SaaS company. The platform made everything feel accessible, and the mentorship sessions gave me clarity and confidence. I felt supported every step of the way.”</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-grey2 bg-opacity-80 mt-32">
+  <!-- Flex Container -->
+  <div class="container flex flex-col-reverse justify-between px-6 py-10 mx-auto space-y-8 md:flex-row md:space-y-0">
+    
+   <!-- Logo and Social links container -->
+<div class="flex flex-col items-center justify-start space-y-6 md:flex-col md:space-y-0 md:items-start">
+  <!-- Logo -->
+  <div>
+    <img src="images/logo.png" alt="Logo" class="w-64 h-12 mt-12 mb-4" />
+  </div>
+
+  <!-- Social links container -->
+  <div class="flex flex-row space-x-4 -mt-6">
+    <a href="#"><img src="images/facebook.png" alt="Facebook" class="h-8 w-8 hover:opacity-50"></a>
+    <a href="#"><img src="images/instagram.png" alt="Instagram" class="h-8 w-8 hover:opacity-50"></a>
+    <a href="#"><img src="images/twitter.png" alt="Twitter" class="h-8 w-8 hover:opacity-50"></a>
+    <a href="#"><img src="images/youtube.png" alt="YouTube" class="h-8 w-8 hover:opacity-50"></a>
+    <a href="#"><img src="images/pinterest.png" alt="Pinterest" class="h-8 w-8 hover:opacity-50"></a>
+  </div>
+</div>
+
+
+  <!-- List Container -->
+<div class="flex flex-col md:flex-row text-white font-medium">
+
+  <!-- First column -->
+  <div class="flex flex-col space-y-4  md:space-y-3">
+    <a href="#" class="hover:text-violet-400 pt-12">Home</a>
+    <a href="#" class="hover:text-violet-400">Parteners</a>
+    <a href="#" class="hover:text-violet-400">Support</a>
+    <a href="#" class="hover:text-violet-400">About Us</a>
+  </div>
+
+  <!-- Second column -->
+  <div class="flex flex-col space-y-4 space-x-4 pt-12 md:space-y-3 mt-4 md:mt-0 md:ml-12">
+    <a href="#" class="hover:text-violet-400 ml-4">Careers</a>
+    <a href="#" class="hover:text-violet-400">Community</a>
+    <a href="#" class="hover:text-violet-400">Privacy Policy</a>
+  </div>
+
+</div>
+
+    <!-- Input Container -->
+    <div class="flex flex-col justify-between mt-8 md:mt-0 pt-12">
+      <form>
+        <div class="flex space-x-3">
+          <input type="text" class="flex-1 px-4 rounded-full focus:outline-none" placeholder="Subscribe to our newsletter"/>
+          <button class="px-6 py-2 text-white rounded-full bg-darkPurple2 hover:bg-brightPurple2 transition-colors duration-200">Go</button>
+        </div>
+      </form>
+      <div class="hidden text-white md:block mt-4">
+        Copyright &copy; 2025, All Rights Reserved
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+
+</body>
+</html>
