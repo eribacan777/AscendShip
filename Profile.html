@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your AscendShip profile: skills, applications, saved opportunities and events.">
+  <title>AscendShip ~ My Profile</title>
+  <link rel="icon" type="image/png" href="images/arrow.png">
+  <!-- Compiled Tailwind CSS (npm run build) -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-grey2 backdrop-blur shadow-lg">
+    <nav class="container mx-auto flex items-center justify-between px-6 py-2 font-medium">
+      <a href="index.html"><img src="images/logo.png" alt="AscendShip" class="w-36 h-auto"></a>
+
+      <!-- Menu Items -->
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+
+      <!-- Account / Get Started (filled in by js/app.js) -->
+      <div class="hidden md:flex items-center gap-4" data-auth-slot></div>
+
+      <!-- Hamburger (mobile) -->
+      <button id="menu-btn" type="button" class="md:hidden p-2 text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-6 pb-6">
+      <div class="flex flex-col space-y-4 pt-4 font-medium">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+      <div class="flex items-center gap-4 pt-6" data-auth-slot></div>
+    </div>
+  </header>
+
+<main class="container mx-auto px-6 pt-32">
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Profile card -->
+      <aside class="lg:w-80 shrink-0">
+        <div class="card text-center lg:sticky lg:top-24">
+          <span id="profile-avatar" class="avatar w-24 h-24 text-3xl"></span>
+          <h1 id="profile-name" class="mt-4 text-2xl font-bold"></h1>
+          <p id="profile-role" class="text-violet-300"></p>
+          <p id="profile-email" class="text-sm text-gray-400 break-all"></p>
+          <p id="profile-bio" class="mt-4 text-sm text-gray-300"></p>
+          <div id="profile-skills" class="mt-4 flex flex-wrap justify-center gap-2"></div>
+          <div class="mt-6 flex flex-col gap-3">
+            <button type="button" id="edit-profile" class="btn-primary">Edit profile</button>
+            <button type="button" data-logout class="btn-outline">Log out</button>
+            <button type="button" id="delete-account" class="text-sm text-gray-500 hover:text-red-400">Delete account</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Dashboard -->
+      <section class="flex-1 min-w-0 space-y-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="card !p-4"><p id="count-applications" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Applications</p></div>
+          <div class="card !p-4"><p id="count-saved" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Saved</p></div>
+          <div class="card !p-4"><p id="count-events" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Events</p></div>
+          <div class="card !p-4"><p id="count-mentors" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Mentor requests</p></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">Recommended for you</h2>
+          <p class="text-gray-400">Best matches for your skills.</p>
+          <div id="recommended" class="grid gap-6 mt-6 md:grid-cols-2"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">My applications</h2>
+          <div id="applications" class="mt-6 space-y-3"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">Saved opportunities</h2>
+          <div id="saved" class="grid gap-6 mt-6 md:grid-cols-2"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">My events</h2>
+          <div id="my-events" class="mt-6 space-y-3"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">Mentoring sessions</h2>
+          <div id="my-mentors" class="mt-6 space-y-3"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-grey2 mt-32">
+    <div class="container flex flex-col-reverse justify-between gap-10 px-6 py-10 mx-auto md:flex-row">
+
+      <!-- Logo and social links -->
+      <div class="flex flex-col items-center space-y-6 md:items-start">
+        <img src="images/logo.png" alt="AscendShip" class="w-56 h-auto">
+        <div class="flex flex-row space-x-4">
+          <a href="https://facebook.com" target="_blank" rel="noopener"><img src="images/facebook.png" alt="Facebook" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="images/instagram.png" alt="Instagram" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener"><img src="images/youtube.png" alt="YouTube" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://pinterest.com" target="_blank" rel="noopener"><img src="images/pinterest.png" alt="Pinterest" class="h-8 w-8 hover:opacity-50"></a>
+        </div>
+        <p class="text-sm text-gray-400">Copyright &copy; <span id="year">2026</span> AscendShip. All Rights Reserved.</p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex justify-center gap-16 font-medium">
+        <div class="flex flex-col space-y-3">
+          <a href="index.html" class="hover:text-violet-400">Home</a>
+          <a href="About-Us.html#partners" class="hover:text-violet-400">Partners</a>
+          <a href="About-Us.html#contact" class="hover:text-violet-400">Support</a>
+          <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
+        </div>
+        <div class="flex flex-col space-y-3">
+          <a href="Jobs.html" class="hover:text-violet-400">Careers</a>
+          <a href="Community.html" class="hover:text-violet-400">Community</a>
+          <a href="Events.html" class="hover:text-violet-400">Events</a>
+          <a href="About-Us.html#privacy" class="hover:text-violet-400">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="mb-3 font-bold">Get new opportunities weekly</h3>
+        <form id="newsletter-form" class="flex w-full max-w-sm space-x-3" novalidate>
+          <input type="email" class="input" placeholder="Subscribe to our newsletter" aria-label="Email address">
+          <button type="submit" class="btn-primary">Go</button>
+        </form>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/opportunities.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>
