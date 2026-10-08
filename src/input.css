@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-black text-white antialiased min-h-screen flex flex-col; }
+  main { @apply flex-1; }
+}
+
+@layer components {
+  /* Navbar */
+  .nav-link { @apply transition-colors duration-200 hover:text-violet-400; }
+  .nav-link.active { @apply text-violet-400; }
+
+  /* Buttons */
+  .btn { @apply inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full font-semibold transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-purple2 text-white hover:bg-darkPurple2; }
+  .btn-outline { @apply btn border border-violet-400 text-violet-300 hover:bg-violet-400/10; }
+  .btn-danger { @apply btn border border-red-500 text-red-400 hover:bg-red-500/10; }
+
+  /* Layout pieces */
+  .card { @apply bg-grey2 rounded-2xl p-6 shadow-lg border border-white/5; }
+  .page-hero { @apply pt-32 pb-10 text-center px-6; }
+  .page-title { @apply text-4xl md:text-5xl font-bold; }
+  .page-subtitle { @apply mt-4 max-w-2xl mx-auto text-lightPink2; }
+  .section-title { @apply text-3xl md:text-4xl font-bold; }
+
+  /* Forms */
+  .label { @apply block mb-1 text-sm font-medium text-gray-200; }
+  .input { @apply w-full px-4 py-2 rounded-full bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-400; }
+  textarea.input { @apply rounded-2xl; }
+  .input-invalid { @apply ring-2 ring-red-500; }
+  .field-error { @apply mt-1 text-sm text-red-400; }
+  .field-error:empty { @apply hidden; }
+
+  /* Small bits */
+  .chip { @apply inline-block px-3 py-1 rounded-full text-xs font-medium bg-darkPurple2 text-lightPink2; }
+  .chip-toggle { @apply px-3 py-1 rounded-full text-sm border border-white/20 text-gray-300 transition-colors cursor-pointer hover:border-violet-400; }
+  .chip-toggle.selected { @apply bg-purple2 border-purple2 text-white; }
+  .avatar { @apply inline-flex shrink-0 items-center justify-center rounded-full bg-purple2 font-bold text-white; }
+  .company-logo { @apply flex shrink-0 items-center justify-center w-12 h-12 rounded-xl bg-darkPurple2 text-lg font-bold text-lightPink2; }
+  .toast { @apply max-w-sm px-5 py-3 rounded-xl bg-grey2 text-white shadow-2xl transition-all duration-300; background-color: #2e2d2d; }
+  .empty-state { @apply py-16 text-center text-gray-400; }
+}

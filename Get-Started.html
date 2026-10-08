@@ -1,54 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Tailwind CSS -->
-    <link href="./output.css" rel="stylesheet"><!--Loads the compiled Tailwind CSS file. Tailwind generates this CSS after processing your project.-->
-    <link rel="stylesheet" href="./css/main.css"><!--Loads a custom CSS file where you can override Tailwind styles or add your own.-->
-    
-    <title>AscendShip ~ Get Started</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign in or create your free AscendShip account.">
+  <title>AscendShip ~ Get Started</title>
+  <link rel="icon" type="image/png" href="images/arrow.png">
+  <!-- Compiled Tailwind CSS (npm run build) -->
+  <link rel="stylesheet" href="css/main.css">
 </head>
+<body>
 
-<body class="bg-black text-white">
-   
-    <!--NavBar-->
-    <nav class="p-4">
+  <!-- Navbar -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-grey2 backdrop-blur shadow-lg">
+    <nav class="container mx-auto flex items-center justify-between px-6 py-2 font-medium">
+      <a href="index.html"><img src="images/logo.png" alt="AscendShip" class="w-36 h-auto"></a>
 
-        <!--NavBar Section--> 
-        <section id="menu">
-            <div class="fixed top-0 left-0 w-full h-10 z-50 bg-grey2 bg-opacity-80 flex items-center px-8">
-                <!--Logo-->
-                <div>
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="Logo" class="w-36 h-auto">
-                    </a>
-                </div>
-            </div>
-        </section>
+      <!-- Menu Items -->
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+
+      <!-- Account / Get Started (filled in by js/app.js) -->
+      <div class="hidden md:flex items-center gap-4" data-auth-slot></div>
+
+      <!-- Hamburger (mobile) -->
+      <button id="menu-btn" type="button" class="md:hidden p-2 text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </nav>
 
-    <!--Middle Box-->
-    <section id="middle-box" class="flex items-center justify-center min-h-screen space-x-8">
-        <div class="bg-grey2 bg-opacity-80 rounded-lg w-120 h-120 mt-4">
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-6 pb-6">
+      <div class="flex flex-col space-y-4 pt-4 font-medium">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+      <div class="flex items-center gap-4 pt-6" data-auth-slot></div>
+    </div>
+  </header>
 
-           <h2 class="text-4xl text-white font-bold underline text-center pt-12 ">Sign In</h2>
+<main class="flex items-center justify-center px-6 pt-32 pb-10">
+    <div class="card w-full max-w-lg">
 
-           <h3 class="text-lg text-white pl-6 pt-16 pb-2 "><span class="text-red2 mr-1">*</span>Email</h3>
-                <input type="text" class="flex mx-20 px-4 w-80 rounded-full focus:outline-none" placeholder="Enter your email"/>
+      <!-- Tabs -->
+      <div class="grid grid-cols-2 gap-2 p-1 mb-8 rounded-full bg-black/40" role="tablist">
+        <button type="button" class="tab-btn rounded-full py-2 font-semibold" data-tab="signin" role="tab">Sign In</button>
+        <button type="button" class="tab-btn rounded-full py-2 font-semibold" data-tab="signup" role="tab">Sign Up</button>
+      </div>
 
-           <h4 class="text-lg text-white pl-6 pt-8 pb-2"><span class="text-red2 mr-1">*</span>Password</h3>
-                <input type="text" class="flex mx-20 px-4 w-80 rounded-full focus:outline-none" placeholder="Enter your password"/>
+      <!-- Sign In -->
+      <form id="signin-form" class="space-y-5" novalidate>
+        <h1 class="text-3xl font-bold text-center">Welcome back</h1>
+        <div>
+          <label class="label" for="signin-email"><span class="text-red-400 mr-1">*</span>Email</label>
+          <input id="signin-email" type="email" class="input" placeholder="Enter your email" autocomplete="email">
+        </div>
+        <div>
+          <label class="label" for="signin-password"><span class="text-red-400 mr-1">*</span>Password</label>
+          <input id="signin-password" type="password" class="input" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center gap-2 text-gray-300"><input type="checkbox" id="show-password" class="accent-violet-500"> Show password</label>
+          <button type="button" id="forgot-password" class="hover:text-violet-400">Forgot your password?</button>
+        </div>
+        <p id="signin-error" class="field-error text-center"></p>
+        <button type="submit" class="btn-primary w-full">Sign In</button>
+        <p class="text-center text-gray-300">Don't have an account? <button type="button" class="text-violet-400 hover:underline" data-tab="signup">Sign Up</button></p>
+      </form>
 
-           <h5 class="text-lg text-white text-sm pl-64 pt-4 pb-4 hover:text-violet-400">Forgot your password?</h3>
+      <!-- Sign Up -->
+      <form id="signup-form" class="space-y-5 hidden" novalidate>
+        <h1 class="text-3xl font-bold text-center">Create your account</h1>
+        <div>
+          <label class="label" for="signup-name"><span class="text-red-400 mr-1">*</span>Full name</label>
+          <input id="signup-name" class="input" placeholder="e.g. Maria Ionescu" autocomplete="name">
+        </div>
+        <div>
+          <label class="label" for="signup-email"><span class="text-red-400 mr-1">*</span>Email</label>
+          <input id="signup-email" type="email" class="input" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label class="label" for="signup-password"><span class="text-red-400 mr-1">*</span>Password</label>
+            <input id="signup-password" type="password" class="input" placeholder="Min. 8 chars + a digit" autocomplete="new-password">
+          </div>
+          <div>
+            <label class="label" for="signup-confirm"><span class="text-red-400 mr-1">*</span>Confirm password</label>
+            <input id="signup-confirm" type="password" class="input" placeholder="Repeat password" autocomplete="new-password">
+          </div>
+        </div>
+        <div>
+          <label class="label" for="signup-role"><span class="text-red-400 mr-1">*</span>I am a…</label>
+          <select id="signup-role" class="input">
+            <option value="">Choose one</option>
+            <option>Student</option>
+            <option>Recent graduate</option>
+            <option>Career switcher</option>
+            <option>Junior professional</option>
+          </select>
+        </div>
+        <div>
+          <p class="label">Your skills <span class="text-gray-400">(we use them to match you with opportunities)</span></p>
+          <div id="signup-skills" class="flex flex-wrap gap-2"></div>
+        </div>
+        <label class="flex items-start gap-2 text-sm text-gray-300">
+          <input type="checkbox" id="signup-terms" class="mt-1 accent-violet-500">
+          <span>I agree to the <a href="About-Us.html#privacy" target="_blank" class="text-violet-400 hover:underline">privacy policy</a>.</span>
+        </label>
+        <p id="signup-error" class="field-error text-center"></p>
+        <button type="submit" class="btn-primary w-full">Create account</button>
+        <p class="text-center text-gray-300">Already have an account? <button type="button" class="text-violet-400 hover:underline" data-tab="signin">Sign In</button></p>
+      </form>
+    </div>
+  </main>
+<!-- nofooter -->
 
-           <div class="flex flex-row justify-between mx-10 pt-4">     
-             <h6 class="flex flex-row text-xl font-semibold tracking-tight text-white pl-4 pt-4">Don't have an account?</h6>
-                <button  class="px-6 py-4 text-white bg-purple2 rounded-full font-bold hover:bg-darkPurple2 hover:font-bold ">Sign Up</button>
-           </div>
-
-    </section>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
-    

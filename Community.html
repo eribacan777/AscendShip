@@ -1,42 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Tailwind CSS -->
-    <link href="./output.css" rel="stylesheet"><!--Loads the compiled Tailwind CSS file. Tailwind generates this CSS after processing your project.-->
-    <link rel="stylesheet" href="./css/main.css"><!--Loads a custom CSS file where you can override Tailwind styles or add your own.-->
-    
-    <title>AscendShip ~ Community</title>
-<body class="bg-black text-white">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ask questions, share advice and find mentors in the AscendShip community.">
+  <title>AscendShip ~ Community</title>
+  <link rel="icon" type="image/png" href="images/arrow.png">
+  <!-- Compiled Tailwind CSS (npm run build) -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
 
   <!-- Navbar -->
-  <nav class="p-4">
-    <section id="menu">
-      <div class="fixed top-0 left-0 w-full z-50 bg-grey2 bg-opacity-80 shadow-lg">
-        <div class="flex items-center py-2 text-white text-base font-medium">
-          
-          <!-- Logo -->
-          <div class="pl-10">
-            <a href="index.html">
-              <img src="images/logo.png" alt="Logo" class="w-36 h-auto">
-            </a>
-          </div>
-          
-          <!-- Menu Items -->
-          <div class="pl-86 md:flex space-x-12">
-            <a href="Internships.html" class="hover:text-violet-400">Internships</a>
-            <a href="Jobs.html" class="hover:text-violet-400">Jobs</a>
-            <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
-            <a href="Events.html" class="hover:text-violet-400">Events</a>
-            <a href="Community.html" class="hover:text-violet-400">Community</a>
-          </div>
+  <header class="fixed top-0 inset-x-0 z-50 bg-grey2 backdrop-blur shadow-lg">
+    <nav class="container mx-auto flex items-center justify-between px-6 py-2 font-medium">
+      <a href="index.html"><img src="images/logo.png" alt="AscendShip" class="w-36 h-auto"></a>
 
+      <!-- Menu Items -->
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+
+      <!-- Account / Get Started (filled in by js/app.js) -->
+      <div class="hidden md:flex items-center gap-4" data-auth-slot></div>
+
+      <!-- Hamburger (mobile) -->
+      <button id="menu-btn" type="button" class="md:hidden p-2 text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-6 pb-6">
+      <div class="flex flex-col space-y-4 pt-4 font-medium">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+      <div class="flex items-center gap-4 pt-6" data-auth-slot></div>
+    </div>
+  </header>
+
+<main>
+    <section class="page-hero">
+      <h1 class="page-title">Community</h1>
+      <p class="page-subtitle">Ask questions, share what you learned and find teammates. Need personal guidance? Request a session with one of our mentors.</p>
+    </section>
+
+    <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-8">
+
+      <!-- Feed -->
+      <section class="flex-1 min-w-0 space-y-6">
+
+        <!-- New post -->
+        <form id="post-form" class="card space-y-4" novalidate>
+          <h2 class="text-xl font-bold">Start a discussion</h2>
+          <div>
+            <label class="label" for="post-title">Title</label>
+            <input id="post-title" class="input" maxlength="120" placeholder="What do you want to talk about?">
+          </div>
+          <div>
+            <label class="label" for="post-body">Message</label>
+            <textarea id="post-body" rows="4" class="input" maxlength="2000" placeholder="Share details, ask your question…"></textarea>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-end gap-4">
+            <div class="sm:w-60">
+              <label class="label" for="post-category">Category</label>
+              <select id="post-category" class="input">
+                <option>Career advice</option>
+                <option>Learning</option>
+                <option>Projects</option>
+                <option>Interviews</option>
+                <option>Off-topic</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary sm:ml-auto">Publish</button>
+          </div>
+        </form>
+
+        <!-- Category filter -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div id="category-tabs" class="flex flex-wrap gap-2"></div>
+          <select id="post-sort" class="input !w-auto ml-auto" aria-label="Sort posts">
+            <option value="new">Newest</option>
+            <option value="top">Most liked</option>
+          </select>
+        </div>
+
+        <div id="posts" class="space-y-6"></div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="lg:w-80 shrink-0 space-y-6">
+        <div class="card">
+          <h2 class="text-xl font-bold">Mentors</h2>
+          <p class="mt-1 text-sm text-gray-400">Free 30-minute sessions with professionals.</p>
+          <div id="mentors" class="mt-4 space-y-4"></div>
+        </div>
+        <div class="card">
+          <h2 class="text-xl font-bold">Community guidelines</h2>
+          <ul class="mt-3 space-y-2 text-sm text-gray-300 list-disc list-inside">
+            <li>Be kind and respectful.</li>
+            <li>No spam or self-promotion.</li>
+            <li>Search before asking — maybe it was answered.</li>
+            <li>Never share passwords or personal documents.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-grey2 mt-32">
+    <div class="container flex flex-col-reverse justify-between gap-10 px-6 py-10 mx-auto md:flex-row">
+
+      <!-- Logo and social links -->
+      <div class="flex flex-col items-center space-y-6 md:items-start">
+        <img src="images/logo.png" alt="AscendShip" class="w-56 h-auto">
+        <div class="flex flex-row space-x-4">
+          <a href="https://facebook.com" target="_blank" rel="noopener"><img src="images/facebook.png" alt="Facebook" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="images/instagram.png" alt="Instagram" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener"><img src="images/youtube.png" alt="YouTube" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://pinterest.com" target="_blank" rel="noopener"><img src="images/pinterest.png" alt="Pinterest" class="h-8 w-8 hover:opacity-50"></a>
+        </div>
+        <p class="text-sm text-gray-400">Copyright &copy; <span id="year">2026</span> AscendShip. All Rights Reserved.</p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex justify-center gap-16 font-medium">
+        <div class="flex flex-col space-y-3">
+          <a href="index.html" class="hover:text-violet-400">Home</a>
+          <a href="About-Us.html#partners" class="hover:text-violet-400">Partners</a>
+          <a href="About-Us.html#contact" class="hover:text-violet-400">Support</a>
+          <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
+        </div>
+        <div class="flex flex-col space-y-3">
+          <a href="Jobs.html" class="hover:text-violet-400">Careers</a>
+          <a href="Community.html" class="hover:text-violet-400">Community</a>
+          <a href="Events.html" class="hover:text-violet-400">Events</a>
+          <a href="About-Us.html#privacy" class="hover:text-violet-400">Privacy Policy</a>
         </div>
       </div>
-    </section>
-  </nav>
 
+      <!-- Newsletter -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="mb-3 font-bold">Get new opportunities weekly</h3>
+        <form id="newsletter-form" class="flex w-full max-w-sm space-x-3" novalidate>
+          <input type="email" class="input" placeholder="Subscribe to our newsletter" aria-label="Email address">
+          <button type="submit" class="btn-primary">Go</button>
+        </form>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/community.js"></script>
 </body>
 </html>

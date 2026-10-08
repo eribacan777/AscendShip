@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Paid IT internships for students, graduates and career switchers.">
-  <title>AscendShip ~ Internships</title>
+  <meta name="description" content="Your AscendShip profile: skills, applications, saved opportunities and events.">
+  <title>AscendShip ~ My Profile</title>
   <link rel="icon" type="image/png" href="images/arrow.png">
   <!-- Compiled Tailwind CSS (npm run build) -->
   <link rel="stylesheet" href="css/main.css">
@@ -47,54 +47,60 @@
     </div>
   </header>
 
-<main data-listing="internship">
-    <section class="page-hero">
-      <h1 class="page-title">Start with an internship</h1>
-      <p class="page-subtitle">Paid internships for students and career switchers. Learn on real projects, with a mentor by your side.</p>
-    </section>
+<main class="container mx-auto px-6 pt-32">
+    <div class="flex flex-col lg:flex-row gap-8">
 
-    <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-8">
-
-      <!-- Filters -->
-      <aside class="lg:w-72 shrink-0">
-        <button type="button" id="filters-toggle" class="btn-outline w-full lg:hidden mb-4">Show / hide filters</button>
-        <form id="filters-form" class="card space-y-6 hidden lg:block lg:sticky lg:top-24">
-          <div>
-            <label class="label" for="filter-q">Search</label>
-            <input id="filter-q" name="q" type="search" class="input" placeholder="Title, company, skill…">
+      <!-- Profile card -->
+      <aside class="lg:w-80 shrink-0">
+        <div class="card text-center lg:sticky lg:top-24">
+          <span id="profile-avatar" class="avatar w-24 h-24 text-3xl"></span>
+          <h1 id="profile-name" class="mt-4 text-2xl font-bold"></h1>
+          <p id="profile-role" class="text-violet-300"></p>
+          <p id="profile-email" class="text-sm text-gray-400 break-all"></p>
+          <p id="profile-bio" class="mt-4 text-sm text-gray-300"></p>
+          <div id="profile-skills" class="mt-4 flex flex-wrap justify-center gap-2"></div>
+          <div class="mt-6 flex flex-col gap-3">
+            <button type="button" id="edit-profile" class="btn-primary">Edit profile</button>
+            <button type="button" data-logout class="btn-outline">Log out</button>
+            <button type="button" id="delete-account" class="text-sm text-gray-500 hover:text-red-400">Delete account</button>
           </div>
-          <div>
-            <label class="label" for="filter-location">Location</label>
-            <select id="filter-location" name="location" class="input"></select>
-          </div>
-          <fieldset>
-            <legend class="label">Work mode</legend>
-            <div class="space-y-2 text-gray-300">
-              <label class="flex items-center gap-2"><input type="checkbox" name="mode" value="Remote" class="accent-violet-500 w-4 h-4"> Remote</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="mode" value="Hybrid" class="accent-violet-500 w-4 h-4"> Hybrid</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="mode" value="On-site" class="accent-violet-500 w-4 h-4"> On-site</label>
-            </div>
-          </fieldset>
-          <div>
-            <p class="label">Skills</p>
-            <div id="filter-skills" class="flex flex-wrap gap-2"></div>
-          </div>
-          <div>
-            <label class="label" for="filter-sort">Sort by</label>
-            <select id="filter-sort" name="sort" class="input">
-              <option value="newest">Newest first</option>
-              <option value="match" disabled>Best match (sign in)</option>
-              <option value="company">Company (A–Z)</option>
-            </select>
-          </div>
-          <button type="button" id="filters-reset" class="btn-outline w-full">Clear filters</button>
-        </form>
+        </div>
       </aside>
 
-      <!-- Results -->
-      <section class="flex-1">
-        <p id="results-count" class="mb-4 text-gray-400"></p>
-        <div id="results" class="grid gap-6 md:grid-cols-2"></div>
+      <!-- Dashboard -->
+      <section class="flex-1 min-w-0 space-y-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="card !p-4"><p id="count-applications" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Applications</p></div>
+          <div class="card !p-4"><p id="count-saved" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Saved</p></div>
+          <div class="card !p-4"><p id="count-events" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Events</p></div>
+          <div class="card !p-4"><p id="count-mentors" class="text-3xl font-bold text-violet-400">0</p><p class="text-sm text-gray-400">Mentor requests</p></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">Recommended for you</h2>
+          <p class="text-gray-400">Best matches for your skills.</p>
+          <div id="recommended" class="grid gap-6 mt-6 md:grid-cols-2"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">My applications</h2>
+          <div id="applications" class="mt-6 space-y-3"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">Saved opportunities</h2>
+          <div id="saved" class="grid gap-6 mt-6 md:grid-cols-2"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">My events</h2>
+          <div id="my-events" class="mt-6 space-y-3"></div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold">Mentoring sessions</h2>
+          <div id="my-mentors" class="mt-6 space-y-3"></div>
+        </div>
       </section>
     </div>
   </main>
@@ -147,6 +153,6 @@
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/opportunities.js"></script>
-  <script src="js/listings.js"></script>
+  <script src="js/profile.js"></script>
 </body>
 </html>

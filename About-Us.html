@@ -1,42 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Tailwind CSS -->
-    <link href="./output.css" rel="stylesheet"><!--Loads the compiled Tailwind CSS file. Tailwind generates this CSS after processing your project.-->
-    <link rel="stylesheet" href="./css/main.css"><!--Loads a custom CSS file where you can override Tailwind styles or add your own.-->
-    
-    <title>AscendShip ~ About Us</title>
-<body class="bg-black text-white">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Our mission, team, partners and how to contact AscendShip.">
+  <title>AscendShip ~ About Us</title>
+  <link rel="icon" type="image/png" href="images/arrow.png">
+  <!-- Compiled Tailwind CSS (npm run build) -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
 
   <!-- Navbar -->
-  <nav class="p-4">
-    <section id="menu">
-      <div class="fixed top-0 left-0 w-full z-50 bg-grey2 bg-opacity-80 shadow-lg">
-        <div class="flex items-center py-2 text-white text-base font-medium">
-          
-          <!-- Logo -->
-          <div class="pl-10">
-            <a href="index.html">
-                <img src="images/logo.png" alt="Logo" class="w-36 h-auto">
-            </a>
-          </div>
-          
-          <!-- Menu Items -->
-          <div class="pl-86 md:flex space-x-12">
-            <a href="Internships.html" class="hover:text-violet-400">Internships</a>
-            <a href="Jobs.html" class="hover:text-violet-400">Jobs</a>
-            <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
-            <a href="Events.html" class="hover:text-violet-400">Events</a>
-            <a href="Community.html" class="hover:text-violet-400">Community</a>
-          </div>
+  <header class="fixed top-0 inset-x-0 z-50 bg-grey2 backdrop-blur shadow-lg">
+    <nav class="container mx-auto flex items-center justify-between px-6 py-2 font-medium">
+      <a href="index.html"><img src="images/logo.png" alt="AscendShip" class="w-36 h-auto"></a>
 
+      <!-- Menu Items -->
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+
+      <!-- Account / Get Started (filled in by js/app.js) -->
+      <div class="hidden md:flex items-center gap-4" data-auth-slot></div>
+
+      <!-- Hamburger (mobile) -->
+      <button id="menu-btn" type="button" class="md:hidden p-2 text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-6 pb-6">
+      <div class="flex flex-col space-y-4 pt-4 font-medium">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+      <div class="flex items-center gap-4 pt-6" data-auth-slot></div>
+    </div>
+  </header>
+
+<main>
+    <section class="page-hero">
+      <h1 class="page-title">About AscendShip</h1>
+      <p class="page-subtitle">We believe everyone deserves a fair first step into tech — whether you're a student, a fresh graduate or switching careers.</p>
+    </section>
+
+    <!-- Mission -->
+    <section class="container mx-auto px-6 grid gap-12 md:grid-cols-2 md:items-center">
+      <div class="space-y-5">
+        <h2 class="section-title">Our mission</h2>
+        <p class="text-gray-300">Most job boards are built for people who already have experience. Juniors end up sending hundreds of applications to roles that ask for “3+ years”, and never hear back.</p>
+        <p class="text-gray-300">AscendShip was created to change that. We only list internships and junior roles from companies that are ready to train new people, we match them to your skills, and we surround you with a community and mentors who have been in your shoes.</p>
+        <a href="Get-Started.html?mode=signup" class="btn-primary" data-guest-only>Join AscendShip</a>
+      </div>
+      <img src="images/job.png" alt="Illustration of a job search" class="w-full max-w-md mx-auto rounded-2xl">
+    </section>
+
+    <!-- Values -->
+    <section class="container mx-auto px-6 mt-32">
+      <h2 class="section-title text-center">What we stand for</h2>
+      <div class="grid gap-6 mt-12 md:grid-cols-3">
+        <div class="card">
+          <p class="text-4xl">🎯</p>
+          <h3 class="mt-4 text-xl font-bold">Real opportunities</h3>
+          <p class="mt-2 text-gray-300">Every listing is checked: it must be open to beginners and clearly show the pay.</p>
+        </div>
+        <div class="card">
+          <p class="text-4xl">🤝</p>
+          <h3 class="mt-4 text-xl font-bold">Community first</h3>
+          <p class="mt-2 text-gray-300">Mentors, events and peers who help you grow — not just a list of jobs.</p>
+        </div>
+        <div class="card">
+          <p class="text-4xl">🔍</p>
+          <h3 class="mt-4 text-xl font-bold">Transparency</h3>
+          <p class="mt-2 text-gray-300">Salary ranges on every post, honest requirements and no hidden fees for candidates.</p>
         </div>
       </div>
     </section>
-  </nav>
 
+    <!-- Team -->
+    <section class="container mx-auto px-6 mt-32">
+      <h2 class="section-title text-center">Meet the team</h2>
+      <div class="grid gap-6 mt-12 sm:grid-cols-2 lg:grid-cols-4 text-center">
+        <div class="card"><span class="avatar w-20 h-20 text-2xl">AC</span><h3 class="mt-4 font-bold">Alexandra Cristea</h3><p class="text-sm text-violet-300">Founder &amp; CEO</p></div>
+        <div class="card"><span class="avatar w-20 h-20 text-2xl">RV</span><h3 class="mt-4 font-bold">Radu Vasile</h3><p class="text-sm text-violet-300">Lead Developer</p></div>
+        <div class="card"><span class="avatar w-20 h-20 text-2xl">IM</span><h3 class="mt-4 font-bold">Ioana Marin</h3><p class="text-sm text-violet-300">Talent &amp; Partnerships</p></div>
+        <div class="card"><span class="avatar w-20 h-20 text-2xl">DS</span><h3 class="mt-4 font-bold">Darius Stan</h3><p class="text-sm text-violet-300">Community Manager</p></div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners" class="container mx-auto px-6 mt-32 scroll-mt-28">
+      <h2 class="section-title text-center">Our partners</h2>
+      <p class="mt-4 text-center text-lightPink2">Companies that hire and train early-career talent through AscendShip.</p>
+      <div id="partners-list" class="grid gap-4 mt-12 grid-cols-2 md:grid-cols-5"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container mx-auto max-w-3xl px-6 mt-32">
+      <h2 class="section-title text-center">Frequently asked questions</h2>
+      <div class="mt-12 space-y-4">
+        <details class="card group">
+          <summary class="flex justify-between cursor-pointer font-semibold list-none">Is AscendShip free for candidates?<span class="transition-transform group-open:rotate-45">+</span></summary>
+          <p class="mt-4 text-gray-300">Yes. Creating an account, applying, joining events and talking to mentors is completely free.</p>
+        </details>
+        <details class="card group">
+          <summary class="flex justify-between cursor-pointer font-semibold list-none">Do I need experience to apply?<span class="transition-transform group-open:rotate-45">+</span></summary>
+          <p class="mt-4 text-gray-300">No. All opportunities on AscendShip are internships, entry-level or junior roles. Personal and school projects count as experience.</p>
+        </details>
+        <details class="card group">
+          <summary class="flex justify-between cursor-pointer font-semibold list-none">How does the matching work?<span class="transition-transform group-open:rotate-45">+</span></summary>
+          <p class="mt-4 text-gray-300">When you sign up you select your skills. For each opportunity we calculate how many of the required skills you have and show it as a “% match”. You can update your skills anytime from your profile.</p>
+        </details>
+        <details class="card group">
+          <summary class="flex justify-between cursor-pointer font-semibold list-none">I'm switching careers. Is AscendShip for me?<span class="transition-transform group-open:rotate-45">+</span></summary>
+          <p class="mt-4 text-gray-300">Absolutely! Many of our members come from other fields. Check out the QA and support roles — they are great entry points.</p>
+        </details>
+        <details class="card group">
+          <summary class="flex justify-between cursor-pointer font-semibold list-none">My company wants to post jobs. How?<span class="transition-transform group-open:rotate-45">+</span></summary>
+          <p class="mt-4 text-gray-300">Send us a message using the contact form below and choose “Partnership”. Our team will get back to you within 2 business days.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container mx-auto max-w-3xl px-6 mt-32 scroll-mt-28">
+      <h2 class="section-title text-center">Contact &amp; support</h2>
+      <p class="mt-4 text-center text-lightPink2">Questions, feedback or partnership requests — we read every message.</p>
+      <form id="contact-form" class="card mt-12 space-y-5" novalidate>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div><label class="label" for="contact-name">Name</label><input id="contact-name" class="input" autocomplete="name"></div>
+          <div><label class="label" for="contact-email">Email</label><input id="contact-email" type="email" class="input" autocomplete="email"></div>
+        </div>
+        <div>
+          <label class="label" for="contact-subject">Subject</label>
+          <select id="contact-subject" class="input">
+            <option>General question</option>
+            <option>Technical problem</option>
+            <option>Partnership</option>
+            <option>Feedback</option>
+          </select>
+        </div>
+        <div>
+          <label class="label" for="contact-message">Message</label>
+          <textarea id="contact-message" rows="5" class="input" maxlength="2000"></textarea>
+          <p class="mt-1 text-right text-xs text-gray-400"><span id="contact-count">0</span>/2000</p>
+        </div>
+        <button type="submit" class="btn-primary">Send message</button>
+      </form>
+    </section>
+
+    <!-- Privacy -->
+    <section id="privacy" class="container mx-auto max-w-3xl px-6 mt-32 scroll-mt-28">
+      <h2 class="section-title">Privacy policy</h2>
+      <div class="mt-6 space-y-4 text-gray-300">
+        <p>AscendShip is a student project. All the data you enter (account, applications, posts, messages) is stored only in your own browser using <code class="text-violet-300">localStorage</code>. Nothing is sent to a server.</p>
+        <p>Passwords are never stored in plain text — we keep only a SHA-256 hash of them.</p>
+        <p>You can delete your account and all related data at any time from your profile page. Clearing your browser data also removes everything.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-grey2 mt-32">
+    <div class="container flex flex-col-reverse justify-between gap-10 px-6 py-10 mx-auto md:flex-row">
+
+      <!-- Logo and social links -->
+      <div class="flex flex-col items-center space-y-6 md:items-start">
+        <img src="images/logo.png" alt="AscendShip" class="w-56 h-auto">
+        <div class="flex flex-row space-x-4">
+          <a href="https://facebook.com" target="_blank" rel="noopener"><img src="images/facebook.png" alt="Facebook" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="images/instagram.png" alt="Instagram" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener"><img src="images/youtube.png" alt="YouTube" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://pinterest.com" target="_blank" rel="noopener"><img src="images/pinterest.png" alt="Pinterest" class="h-8 w-8 hover:opacity-50"></a>
+        </div>
+        <p class="text-sm text-gray-400">Copyright &copy; <span id="year">2026</span> AscendShip. All Rights Reserved.</p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex justify-center gap-16 font-medium">
+        <div class="flex flex-col space-y-3">
+          <a href="index.html" class="hover:text-violet-400">Home</a>
+          <a href="About-Us.html#partners" class="hover:text-violet-400">Partners</a>
+          <a href="About-Us.html#contact" class="hover:text-violet-400">Support</a>
+          <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
+        </div>
+        <div class="flex flex-col space-y-3">
+          <a href="Jobs.html" class="hover:text-violet-400">Careers</a>
+          <a href="Community.html" class="hover:text-violet-400">Community</a>
+          <a href="Events.html" class="hover:text-violet-400">Events</a>
+          <a href="About-Us.html#privacy" class="hover:text-violet-400">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="mb-3 font-bold">Get new opportunities weekly</h3>
+        <form id="newsletter-form" class="flex w-full max-w-sm space-x-3" novalidate>
+          <input type="email" class="input" placeholder="Subscribe to our newsletter" aria-label="Email address">
+          <button type="submit" class="btn-primary">Go</button>
+        </form>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/about.js"></script>
 </body>
 </html>
