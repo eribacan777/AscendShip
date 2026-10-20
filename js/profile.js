@@ -73,6 +73,16 @@ function renderProfile() {
         </div>`, `<a href="Events.html#${e.id}" class="text-sm text-violet-400 hover:underline">Details</a>`)).join('')
     : emptyRow('No events yet.', 'Events.html', 'See upcoming events &rarr;');
 
+  // Job alerts
+  const alerts = user.alerts || [];
+  document.getElementById('my-alerts').innerHTML = alerts.length
+    ? alerts.map(a => listRow(`
+        <div>
+          <p class="font-semibold">${escapeHtml(a.name)}</p>
+          <p class="text-sm text-gray-400">${a.skills.length ? a.skills.map(escapeHtml).join(', ') : 'Any skills'} · ${escapeHtml(a.location || 'Any location')}</p>
+        </div>`, '<a href="Alerts.html" class="text-sm text-violet-400 hover:underline">View matches</a>')).join('')
+    : emptyRow('No job alerts yet.', 'Alerts.html', 'Create your first alert &rarr;');
+
   // Mentor requests
   document.getElementById('my-mentors').innerHTML = user.mentorRequests.length
     ? user.mentorRequests.map(r => {
