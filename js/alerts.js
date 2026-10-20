@@ -62,7 +62,7 @@ function renderAlerts() {
             <div class="mt-3 flex flex-wrap gap-2">${alert.skills.map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('')}</div>
           </div>
           <span class="shrink-0 px-3 py-1 rounded-full text-sm font-bold ${matches.length ? 'bg-green/20 text-green' : 'bg-white/10 text-gray-400'}">
-            ${matches.length} match${matches.length === 1 ? '' : 'es'}
+            ${matches.length} job${matches.length === 1 ? '' : 's'} found
           </span>
         </div>
         ${matches.length ? `
@@ -72,7 +72,7 @@ function renderAlerts() {
                 <span class="text-gray-500">· ${escapeHtml(o.company)}</span></li>`).join('')}
           </ul>` : ''}
         <div class="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-center gap-3">
-          ${matches.length ? `<button type="button" data-view="${alert.id}" class="btn-primary !px-4 !py-1 text-sm">View all matches</button>` : ''}
+          ${matches.length ? `<button type="button" data-view="${alert.id}" class="btn-primary !px-4 !py-1 text-sm">View all results</button>` : ''}
           <button type="button" data-edit="${alert.id}" class="btn-outline !px-4 !py-1 text-sm">Edit</button>
           <button type="button" data-delete="${alert.id}" class="btn-danger !px-4 !py-1 text-sm">Delete</button>
           <span class="ml-auto text-xs text-gray-500">${alert.updatedAt ? 'Updated' : 'Created'} ${formatDate(alert.updatedAt || alert.createdAt)}</span>
@@ -85,7 +85,7 @@ function viewMatches(alert) {
   const matches = alertMatches(alert);
   openModal(`
     <h2 class="text-2xl font-bold pr-8">${escapeHtml(alert.name)}</h2>
-    <p class="text-gray-400">${matches.length} matching opportunit${matches.length === 1 ? 'y' : 'ies'}</p>
+    <p class="text-gray-400">${matches.length} opportunit${matches.length === 1 ? 'y' : 'ies'} found for this alert. The % match on each card compares the job with the skills in your profile.</p>
     <div class="grid gap-4 mt-6 md:grid-cols-2">${matches.map(opportunityCard).join('')}</div>`);
 }
 
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         u.alerts = u.alerts || [];
         u.alerts.push({ id: 'a' + Date.now(), ...data, createdAt: new Date().toISOString() });
       });
-      showToast(`Alert created — ${alertMatches(data).length} matching opportunities right now.`);
+      showToast(`Alert created — ${alertMatches(data).length} opportunities found right now.`);
     }
     resetForm();
   });
