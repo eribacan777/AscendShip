@@ -10,6 +10,7 @@ AscendShip is a career platform for early-career tech talent (students, recent g
 - **Apply:** application form with validation. You can save items (☆), follow your applications and withdraw them.
 - **Events:** filter by type, register or cancel, with live seat counters. Past events and sold-out events are handled.
 - **Community:** publish posts, like, comment, delete your own posts, filter by category and request sessions with mentors.
+- **Job Alerts:** full CRUD on saved searches. Create an alert (keywords, type, location, work mode, skills), see the matching jobs and internships, edit it or delete it.
 - **Profile:** edit your profile, see recommendations, applications, saved items, events and mentor requests, and delete your account.
 - **About Us:** mission, team, partners, FAQ, contact form and privacy policy.
 - **Newsletter:** subscribe form in the footer on every page.
@@ -21,14 +22,14 @@ All data is kept in the browser with `localStorage`. There is no backend, so the
 
 ```
 index.html, Jobs.html, Internships.html, Events.html,
-Community.html, About-Us.html, Get-Started.html, Profile.html
+Community.html, About-Us.html, Get-Started.html, Profile.html, Alerts.html
 css/main.css        compiled Tailwind CSS (generated – do not edit)
 src/input.css       Tailwind source + custom component classes
 js/data.js          jobs, internships, events, mentors, seed posts
 js/app.js           shared: storage, accounts, navbar, modal, toasts, newsletter
 js/opportunities.js job/internship cards, details modal, apply & save
 js/listings.js      Jobs/Internships filters
-js/home.js, events.js, community.js, about.js, auth.js, profile.js   page scripts
+js/home.js, events.js, alerts.js, community.js, about.js, auth.js, profile.js   page scripts
 ```
 
 ## Running locally
