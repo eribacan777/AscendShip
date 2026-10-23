@@ -60,7 +60,7 @@ const Auth = {
     const user = {
       name: name.trim(), email, role, skills: skills || [], bio: '',
       passwordHash: await this.hash(password),
-      saved: [], applications: [], events: [], mentorRequests: [], alerts: [],
+      saved: [], applications: [], events: [], mentorRequests: [], alerts: [], projects: [], skillLevels: {},
       createdAt: new Date().toISOString()
     };
     users.push(user);
@@ -244,7 +244,7 @@ function renderAuthSlots() {
 function initNavbar() {
   // Highlight the link of the current page
   const page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link').forEach(link => {
+  document.querySelectorAll('.nav-link, .account-tab').forEach(link => {
     if (link.getAttribute('href') === page) link.classList.add('active');
   });
 

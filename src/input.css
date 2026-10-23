@@ -42,4 +42,8 @@
   .company-logo { @apply flex shrink-0 items-center justify-center w-12 h-12 rounded-xl bg-darkPurple2 text-lg font-bold text-lightPink2; }
   .toast { @apply max-w-sm px-5 py-3 rounded-xl bg-grey2 text-white shadow-2xl transition-all duration-300; background-color: #2e2d2d; }
   .empty-state { @apply py-16 text-center text-gray-400; }
+
+  /* "My account" sub-navigation (Profile, My Skills, Portfolio, Job Alerts) */
+  .account-tab { @apply px-4 py-2 rounded-full text-sm font-semibold border border-white/20 text-gray-300 transition-colors hover:border-violet-400 hover:text-white; }
+  .account-tab.active { @apply bg-purple2 border-purple2 text-white; }
 }

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Add, edit and delete the projects in your portfolio.">
+  <title>AscendShip ~ Portfolio</title>
+  <link rel="icon" type="image/png" href="images/arrow.png">
+  <!-- Compiled Tailwind CSS (npm run build) -->
+  <link rel="stylesheet" href="css/main.css?v=20261023">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-grey2 backdrop-blur shadow-lg">
+    <nav class="container mx-auto flex items-center justify-between px-6 py-2 font-medium">
+      <a href="index.html"><img src="images/logo.png" alt="AscendShip" class="w-36 h-auto"></a>
+
+      <!-- Menu Items -->
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="Alerts.html" class="nav-link">Job Alerts</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+
+      <!-- Account / Get Started (filled in by js/app.js) -->
+      <div class="hidden lg:flex items-center gap-4" data-auth-slot></div>
+
+      <!-- Hamburger (mobile) -->
+      <button id="menu-btn" type="button" class="lg:hidden p-2 text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-white/10 px-6 pb-6">
+      <div class="flex flex-col space-y-4 pt-4 font-medium">
+        <a href="Internships.html" class="nav-link">Internships</a>
+        <a href="Jobs.html" class="nav-link">Jobs</a>
+        <a href="Events.html" class="nav-link">Events</a>
+        <a href="Community.html" class="nav-link">Community</a>
+        <a href="Alerts.html" class="nav-link">Job Alerts</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+      </div>
+      <div class="flex items-center gap-4 pt-6" data-auth-slot></div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6">
+    <!-- My account sub-navigation -->
+    <nav class="flex flex-wrap justify-center gap-2 pt-28" aria-label="My account">
+      <a href="Profile.html" class="account-tab">Profile</a>
+      <a href="Skills.html" class="account-tab">My Skills</a>
+      <a href="Portfolio.html" class="account-tab">Portfolio</a>
+      <a href="Alerts.html" class="account-tab">Job Alerts</a>
+    </nav>
+    <section class="page-hero !px-0 !pt-8">
+      <h1 class="page-title">Portfolio</h1>
+      <p class="page-subtitle">Show employers what you have built. Add your school, personal or open-source projects, and attach them when you apply for a job.</p>
+    </section>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Create / edit form -->
+      <section class="lg:w-[26rem] shrink-0">
+        <form id="project-form" class="card space-y-5 lg:sticky lg:top-24" novalidate>
+          <h2 id="form-title" class="text-2xl font-bold">Add a project</h2>
+          <div>
+            <label class="label" for="project-title">Project title</label>
+            <input id="project-title" class="input" maxlength="60" placeholder="e.g. Weather app">
+          </div>
+          <div>
+            <label class="label" for="project-description">Description <span class="text-gray-400">(min. 20 characters)</span></label>
+            <textarea id="project-description" rows="4" maxlength="600" class="input" placeholder="What does it do? What was your role?"></textarea>
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label class="label" for="project-type">Type</label>
+              <select id="project-type" class="input">
+                <option>Personal</option>
+                <option>University</option>
+                <option>Hackathon</option>
+                <option>Open source</option>
+                <option>Internship / work</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="project-date">Finished <span class="text-gray-400">(optional)</span></label>
+              <input id="project-date" type="month" class="input">
+            </div>
+          </div>
+          <div>
+            <label class="label" for="project-link">Link <span class="text-gray-400">(GitHub, live demo — optional)</span></label>
+            <input id="project-link" type="url" class="input" placeholder="https://github.com/…">
+          </div>
+          <div>
+            <p class="label">Technologies used</p>
+            <div id="project-techs" class="flex flex-wrap gap-2"></div>
+            <p id="project-techs-error" class="field-error"></p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button type="submit" id="form-submit" class="btn-primary">Add project</button>
+            <button type="button" id="form-cancel" class="btn-outline hidden">Cancel editing</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- The user's projects -->
+      <section class="flex-1 min-w-0">
+        <h2 class="text-2xl font-bold">My projects <span id="projects-count" class="text-gray-400"></span></h2>
+        <div id="projects-list" class="mt-6 grid gap-4 md:grid-cols-2"></div>
+      </section>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-grey2 mt-32">
+    <div class="container flex flex-col-reverse justify-between gap-10 px-6 py-10 mx-auto md:flex-row">
+
+      <!-- Logo and social links -->
+      <div class="flex flex-col items-center space-y-6 md:items-start">
+        <img src="images/logo.png" alt="AscendShip" class="w-56 h-auto">
+        <div class="flex flex-row space-x-4">
+          <a href="https://facebook.com" target="_blank" rel="noopener"><img src="images/facebook.png" alt="Facebook" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener"><img src="images/instagram.png" alt="Instagram" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener"><img src="images/youtube.png" alt="YouTube" class="h-8 w-8 hover:opacity-50"></a>
+          <a href="https://pinterest.com" target="_blank" rel="noopener"><img src="images/pinterest.png" alt="Pinterest" class="h-8 w-8 hover:opacity-50"></a>
+        </div>
+        <p class="text-sm text-gray-400">Copyright &copy; <span id="year">2026</span> AscendShip. All Rights Reserved.</p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex justify-center gap-16 font-medium">
+        <div class="flex flex-col space-y-3">
+          <a href="index.html" class="hover:text-violet-400">Home</a>
+          <a href="About-Us.html#partners" class="hover:text-violet-400">Partners</a>
+          <a href="About-Us.html#contact" class="hover:text-violet-400">Support</a>
+          <a href="About-Us.html" class="hover:text-violet-400">About Us</a>
+        </div>
+        <div class="flex flex-col space-y-3">
+          <a href="Jobs.html" class="hover:text-violet-400">Careers</a>
+          <a href="Community.html" class="hover:text-violet-400">Community</a>
+          <a href="Events.html" class="hover:text-violet-400">Events</a>
+          <a href="About-Us.html#privacy" class="hover:text-violet-400">Privacy Policy</a>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="mb-3 font-bold">Get new opportunities weekly</h3>
+        <form id="newsletter-form" class="flex w-full max-w-sm space-x-3" novalidate>
+          <input type="email" class="input" placeholder="Subscribe to our newsletter" aria-label="Email address">
+          <button type="submit" class="btn-primary">Go</button>
+        </form>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/data.js?v=20261023"></script>
+  <script src="js/app.js?v=20261023"></script>
+  <script src="js/portfolio.js?v=20261023"></script>
+</body>
+</html>
