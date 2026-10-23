@@ -7,7 +7,7 @@
   <title>AscendShip ~ Job Alerts</title>
   <link rel="icon" type="image/png" href="images/arrow.png">
   <!-- Compiled Tailwind CSS (npm run build) -->
-  <link rel="stylesheet" href="css/main.css?v=20261023">
+  <link rel="stylesheet" href="css/main.css?v=20261024">
 </head>
 <body>
 
@@ -100,9 +100,11 @@
               <label class="flex items-center gap-2"><input type="checkbox" name="alert-mode" value="On-site" class="accent-violet-500 w-4 h-4"> On-site</label>
             </div>
           </fieldset>
-          <div>
-            <p class="label">Skills <span class="text-gray-400">(matches any of them)</span></p>
-            <div id="alert-skills" class="flex flex-wrap gap-2"></div>
+          <div class="rounded-2xl bg-black/30 p-4">
+            <p class="label">Skills</p>
+            <p class="text-sm text-gray-400">Taken automatically from your profile — the alert finds jobs that ask for at least one of them.</p>
+            <div id="profile-skills-info" class="mt-3 flex flex-wrap gap-2"></div>
+            <a href="Skills.html" class="mt-3 inline-block text-sm text-violet-400 hover:underline">Change my skills &rarr;</a>
           </div>
           <p id="alert-error" class="field-error"></p>
 
@@ -165,9 +167,9 @@
     </div>
   </footer>
 
-  <script src="js/data.js?v=20261023"></script>
-  <script src="js/app.js?v=20261023"></script>
-  <script src="js/opportunities.js?v=20261023"></script>
-  <script src="js/alerts.js?v=20261023"></script>
+  <script src="js/data.js?v=20261024"></script>
+  <script src="js/app.js?v=20261024"></script>
+  <script src="js/opportunities.js?v=20261024"></script>
+  <script src="js/alerts.js?v=20261024"></script>
 </body>
 </html>
