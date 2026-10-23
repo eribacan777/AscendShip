@@ -1,4 +1,5 @@
-// Profile page: account info, edit profile, applications, saved items, events and mentor requests.
+// Profile page: account info, edit profile, applications, saved items, events, alerts, projects and mentor requests.
+// Skills are managed on the My Skills page (js/skills.js).
 
 if (!Auth.current()) {
   location.replace('Get-Started.html?redirect=Profile.html');
@@ -22,7 +23,10 @@ function renderProfile() {
   document.getElementById('profile-email').textContent = user.email;
   document.getElementById('profile-bio').textContent = user.bio || '';
   document.getElementById('profile-skills').innerHTML = user.skills.length
-    ? user.skills.map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('')
+    ? user.skills.map(s => {
+        const level = user.skillLevels && user.skillLevels[s] ? ` · ${user.skillLevels[s].level}` : '';
+        return `<span class="chip">${escapeHtml(s)}${escapeHtml(level)}</span>`;
+      }).join('')
     : '<p class="text-sm text-gray-400">No skills yet — add some to get matched!</p>';
 
   document.getElementById('count-applications').textContent = user.applications.length;
@@ -37,7 +41,7 @@ function renderProfile() {
     .slice(0, 4);
   document.getElementById('recommended').innerHTML = recommended.length
     ? recommended.map(opportunityCard).join('')
-    : '<div class="md:col-span-2 card !p-6 text-center text-gray-400">Add skills to your profile (Edit profile) to get recommendations.</div>';
+    : '<div class="md:col-span-2 card !p-6 text-center text-gray-400">Add skills on the <a href="Skills.html" class="text-violet-400 hover:underline">My Skills</a> page to get recommendations.</div>';
 
   // Applications
   document.getElementById('applications').innerHTML = user.applications.length
@@ -47,7 +51,7 @@ function renderProfile() {
         return listRow(`
           <div>
             <p class="font-semibold">${escapeHtml(o.title)}</p>
-            <p class="text-sm text-gray-400">${escapeHtml(o.company)} · applied ${formatDate(a.date)}</p>
+            <p class="text-sm text-gray-400">${escapeHtml(o.company)} · applied ${formatDate(a.date)}${a.projects && a.projects.length ? ` · ${a.projects.length} project${a.projects.length === 1 ? '' : 's'} attached` : ''}</p>
           </div>`, `
           <div class="flex items-center gap-3">
             <span class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-400/20 text-yellow-300">${escapeHtml(a.status)}</span>
@@ -83,6 +87,16 @@ function renderProfile() {
         </div>`, '<a href="Alerts.html" class="text-sm text-violet-400 hover:underline">View matches</a>')).join('')
     : emptyRow('No job alerts yet.', 'Alerts.html', 'Create your first alert &rarr;');
 
+  // Portfolio projects
+  const projects = user.projects || [];
+  document.getElementById('my-projects').innerHTML = projects.length
+    ? projects.map(pr => listRow(`
+        <div>
+          <p class="font-semibold">${escapeHtml(pr.title)}</p>
+          <p class="text-sm text-gray-400">${escapeHtml(pr.type)} · ${pr.techs.map(escapeHtml).join(', ')}</p>
+        </div>`, '<a href="Portfolio.html" class="text-sm text-violet-400 hover:underline">Manage</a>')).join('')
+    : emptyRow('No projects yet.', 'Portfolio.html', 'Add your first project &rarr;');
+
   // Mentor requests
   document.getElementById('my-mentors').innerHTML = user.mentorRequests.length
     ? user.mentorRequests.map(r => {
@@ -98,7 +112,6 @@ function renderProfile() {
 
 function openEditProfile() {
   const user = Auth.current();
-  const selected = new Set(user.skills);
   const body = openModal(`
     <h2 class="text-2xl font-bold">Edit profile</h2>
     <form id="edit-form" class="mt-6 space-y-5" novalidate>
@@ -111,22 +124,9 @@ function openEditProfile() {
         </select>
       </div>
       <div><label class="label" for="edit-bio">Short bio</label><textarea id="edit-bio" rows="3" maxlength="300" class="input" placeholder="What are you looking for?">${escapeHtml(user.bio || '')}</textarea></div>
-      <div>
-        <p class="label">Skills</p>
-        <div id="edit-skills" class="flex flex-wrap gap-2">
-          ${SKILLS.map(s => `<button type="button" class="chip-toggle ${selected.has(s) ? 'selected' : ''}" data-skill="${escapeHtml(s)}">${escapeHtml(s)}</button>`).join('')}
-        </div>
-      </div>
+      <p class="text-sm text-gray-400">To add, change or remove skills, go to <a href="Skills.html" class="text-violet-400 hover:underline">My Skills</a>.</p>
       <button type="submit" class="btn-primary">Save changes</button>
     </form>`);
-
-  body.querySelector('#edit-skills').addEventListener('click', e => {
-    const chip = e.target.closest('[data-skill]');
-    if (!chip) return;
-    chip.classList.toggle('selected');
-    if (selected.has(chip.dataset.skill)) selected.delete(chip.dataset.skill);
-    else selected.add(chip.dataset.skill);
-  });
 
   body.querySelector('#edit-form').addEventListener('submit', e => {
     e.preventDefault();
@@ -139,7 +139,6 @@ function openEditProfile() {
       u.name = name.value.trim();
       u.role = body.querySelector('#edit-role').value;
       u.bio = body.querySelector('#edit-bio').value.trim();
-      u.skills = SKILLS.filter(s => selected.has(s));
     });
     closeModal();
     renderProfile();

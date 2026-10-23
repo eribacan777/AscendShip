@@ -7,7 +7,7 @@
   <title>AscendShip ~ My Profile</title>
   <link rel="icon" type="image/png" href="images/arrow.png">
   <!-- Compiled Tailwind CSS (npm run build) -->
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css?v=20261023">
 </head>
 <body>
 
@@ -49,7 +49,16 @@
     </div>
   </header>
 
-<main class="container mx-auto px-6 pt-32">
+<main class="container mx-auto px-6">
+    <!-- My account sub-navigation -->
+    <nav class="flex flex-wrap justify-center gap-2 pt-28" aria-label="My account">
+      <a href="Profile.html" class="account-tab">Profile</a>
+      <a href="Skills.html" class="account-tab">My Skills</a>
+      <a href="Portfolio.html" class="account-tab">Portfolio</a>
+      <a href="Alerts.html" class="account-tab">Job Alerts</a>
+    </nav>
+
+    <div class="mt-8"></div>
     <div class="flex flex-col lg:flex-row gap-8">
 
       <!-- Profile card -->
@@ -61,6 +70,7 @@
           <p id="profile-email" class="text-sm text-gray-400 break-all"></p>
           <p id="profile-bio" class="mt-4 text-sm text-gray-300"></p>
           <div id="profile-skills" class="mt-4 flex flex-wrap justify-center gap-2"></div>
+          <a href="Skills.html" class="mt-2 inline-block text-sm text-violet-400 hover:underline">Manage skills &rarr;</a>
           <div class="mt-6 flex flex-col gap-3">
             <button type="button" id="edit-profile" class="btn-primary">Edit profile</button>
             <button type="button" data-logout class="btn-outline">Log out</button>
@@ -105,6 +115,14 @@
             <a href="Alerts.html" class="text-sm text-violet-400 hover:underline">Manage alerts &rarr;</a>
           </div>
           <div id="my-alerts" class="mt-6 space-y-3"></div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between gap-4">
+            <h2 class="text-2xl font-bold">My projects</h2>
+            <a href="Portfolio.html" class="text-sm text-violet-400 hover:underline">Manage portfolio &rarr;</a>
+          </div>
+          <div id="my-projects" class="mt-6 space-y-3"></div>
         </div>
 
         <div>
@@ -160,9 +178,9 @@
     </div>
   </footer>
 
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/opportunities.js"></script>
-  <script src="js/profile.js"></script>
+  <script src="js/data.js?v=20261023"></script>
+  <script src="js/app.js?v=20261023"></script>
+  <script src="js/opportunities.js?v=20261023"></script>
+  <script src="js/profile.js?v=20261023"></script>
 </body>
 </html>

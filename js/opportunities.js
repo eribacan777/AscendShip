@@ -91,6 +91,7 @@ function showApplyForm(o) {
   if (!Auth.requireLogin('Sign in or create an account to apply.')) return;
   const user = Auth.current();
   const area = document.getElementById('apply-area');
+  const projects = user.projects || [];
   area.innerHTML = `
     <form id="apply-form" class="space-y-4" novalidate>
       <h3 class="text-xl font-bold">Apply to ${escapeHtml(o.company)}</h3>
@@ -100,6 +101,13 @@ function showApplyForm(o) {
       </div>
       <div><label class="label" for="apply-cv">Link to your CV or portfolio (GitHub, LinkedIn, Drive…)</label><input id="apply-cv" type="url" class="input" placeholder="https://"></div>
       <div><label class="label" for="apply-letter">Why are you a good fit? <span class="text-gray-400">(min. 30 characters)</span></label><textarea id="apply-letter" rows="4" class="input"></textarea></div>
+      <fieldset>
+        <legend class="label">Attach projects from your portfolio <span class="text-gray-400">(optional)</span></legend>
+        ${projects.length
+          ? `<div class="space-y-2 text-gray-300">${projects.map(p => `
+              <label class="flex items-center gap-2"><input type="checkbox" name="apply-project" value="${p.id}" class="accent-violet-500 w-4 h-4"> ${escapeHtml(p.title)}</label>`).join('')}</div>`
+          : '<p class="text-sm text-gray-400">No projects yet. <a href="Portfolio.html" class="text-violet-400 hover:underline">Add some to your portfolio</a>.</p>'}
+      </fieldset>
       <button type="submit" class="btn-primary">Send application</button>
     </form>`;
 
@@ -124,7 +132,8 @@ function showApplyForm(o) {
     Auth.update(u => {
       u.applications.push({
         id: o.id, date: new Date().toISOString(), status: 'Submitted',
-        name: name.value.trim(), email: email.value.trim(), cv: cv.value.trim(), letter: letter.value.trim()
+        name: name.value.trim(), email: email.value.trim(), cv: cv.value.trim(), letter: letter.value.trim(),
+        projects: [...area.querySelectorAll('input[name="apply-project"]:checked')].map(box => box.value)
       });
     });
     area.innerHTML = `<p class="text-green font-semibold">✓ Application sent to ${escapeHtml(o.company)}! You can follow it on your <a href="Profile.html" class="underline">profile</a>.</p>`;
