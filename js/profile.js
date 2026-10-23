@@ -83,7 +83,7 @@ function renderProfile() {
     ? alerts.map(a => listRow(`
         <div>
           <p class="font-semibold">${escapeHtml(a.name)}</p>
-          <p class="text-sm text-gray-400">${a.skills.length ? a.skills.map(escapeHtml).join(', ') : 'Any skills'} · ${escapeHtml(a.location || 'Any location')}</p>
+          <p class="text-sm text-gray-400">${a.type === 'all' ? 'Jobs & internships' : a.type === 'job' ? 'Jobs' : 'Internships'} · ${escapeHtml(a.location || 'Any location')} · ${a.modes.length ? a.modes.map(escapeHtml).join(' / ') : 'Any work mode'}</p>
         </div>`, '<a href="Alerts.html" class="text-sm text-violet-400 hover:underline">View matches</a>')).join('')
     : emptyRow('No job alerts yet.', 'Alerts.html', 'Create your first alert &rarr;');
 

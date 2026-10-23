@@ -1,13 +1,19 @@
 // Job Alerts page: full CRUD on the signed-in student's alerts.
 // Create = new alert, Read = list of alerts + matching jobs, Update = edit an alert, Delete = remove it.
 // Alerts are stored on the user object (user.alerts) in localStorage.
+// The skills are not saved in the alert: every alert uses the skills from the user's profile (My Skills page),
+// so when the profile skills change, the results of all alerts change too.
 
 if (!Auth.current()) {
   location.replace('Get-Started.html?redirect=Alerts.html');
 }
 
-let editingId = null;                 // id of the alert being edited (null = creating a new one)
-const selectedSkills = new Set();     // skills chosen in the form
+let editingId = null;   // id of the alert being edited (null = creating a new one)
+
+function profileSkills() {
+  const user = Auth.current();
+  return (user && user.skills) || [];
+}
 
 function userAlerts() {
   const user = Auth.current();
@@ -15,15 +21,17 @@ function userAlerts() {
 }
 
 // Jobs and internships that match an alert's criteria (same rules as the Jobs page filters)
+// Skills come from the profile; with no skills in the profile, skills are not used as a filter.
 function alertMatches(alert) {
   const keywords = alert.keywords.toLowerCase();
+  const skills = profileSkills();
   return OPPORTUNITIES.filter(o => {
     const text = [o.title, o.company, o.location, o.description, ...o.tags].join(' ').toLowerCase();
     return (alert.type === 'all' || o.type === alert.type)
       && (!keywords || text.includes(keywords))
       && (!alert.location || o.location === alert.location)
       && (alert.modes.length === 0 || alert.modes.includes(o.mode))
-      && (alert.skills.length === 0 || alert.skills.some(s => o.tags.includes(s)));
+      && (skills.length === 0 || skills.some(s => o.tags.includes(s)));
   }).sort((a, b) => b.posted.localeCompare(a.posted));
 }
 
@@ -51,6 +59,9 @@ function renderAlerts() {
     return;
   }
 
+  const skills = profileSkills();
+  const skillsText = skills.length ? `Your skills: ${skills.map(escapeHtml).join(', ')}` : 'No skills in your profile — skills are not used';
+
   document.getElementById('alerts-list').innerHTML = [...alerts].reverse().map(alert => {
     const matches = alertMatches(alert);
     return `
@@ -59,7 +70,7 @@ function renderAlerts() {
           <div class="min-w-0">
             <h3 class="text-xl font-bold">${escapeHtml(alert.name)}</h3>
             <p class="mt-1 text-sm text-gray-400">${describeAlert(alert).map(escapeHtml).join(' · ')}</p>
-            <div class="mt-3 flex flex-wrap gap-2">${alert.skills.map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('')}</div>
+            <p class="mt-1 text-sm text-violet-300">${skillsText}</p>
           </div>
           <span class="shrink-0 px-3 py-1 rounded-full text-sm font-bold ${matches.length ? 'bg-green/20 text-green' : 'bg-white/10 text-gray-400'}">
             ${matches.length} job${matches.length === 1 ? '' : 's'} found
@@ -95,15 +106,15 @@ function fillFormOptions() {
   document.getElementById('alert-location').innerHTML =
     '<option value="">Any location</option>' + locations.map(l => `<option>${escapeHtml(l)}</option>`).join('');
 
-  document.getElementById('alert-skills').innerHTML = SKILLS
-    .map(s => `<button type="button" class="chip-toggle" data-skill="${escapeHtml(s)}">${escapeHtml(s)}</button>`).join('');
+  const skills = profileSkills();
+  document.getElementById('profile-skills-info').innerHTML = skills.length
+    ? skills.map(s => `<span class="chip">${escapeHtml(s)}</span>`).join('')
+    : '<p class="text-sm text-yellow-300">You have no skills in your profile yet.</p>';
 }
 
 function resetForm() {
   editingId = null;
-  selectedSkills.clear();
   document.getElementById('alert-form').reset();
-  document.querySelectorAll('#alert-skills [data-skill]').forEach(chip => chip.classList.remove('selected'));
   document.getElementById('form-title').textContent = 'New job alert';
   document.getElementById('form-submit').textContent = 'Create alert';
   document.getElementById('form-cancel').classList.add('hidden');
@@ -121,11 +132,6 @@ function startEditing(alert) {
   document.getElementById('alert-type').value = alert.type;
   document.getElementById('alert-location').value = alert.location;
   document.querySelectorAll('input[name="alert-mode"]').forEach(box => { box.checked = alert.modes.includes(box.value); });
-  alert.skills.forEach(skill => {
-    selectedSkills.add(skill);
-    const chip = document.querySelector(`#alert-skills [data-skill="${CSS.escape(skill)}"]`);
-    if (chip) chip.classList.add('selected');
-  });
   document.getElementById('form-title').textContent = 'Edit job alert';
   document.getElementById('form-submit').textContent = 'Save changes';
   document.getElementById('form-cancel').classList.remove('hidden');
@@ -139,8 +145,7 @@ function readForm() {
     keywords: document.getElementById('alert-keywords').value.trim(),
     type: document.getElementById('alert-type').value,
     location: document.getElementById('alert-location').value,
-    modes: [...document.querySelectorAll('input[name="alert-mode"]:checked')].map(box => box.value),
-    skills: SKILLS.filter(s => selectedSkills.has(s))
+    modes: [...document.querySelectorAll('input[name="alert-mode"]:checked')].map(box => box.value)
   };
 }
 
@@ -148,8 +153,8 @@ function validate(data) {
   const nameInput = document.getElementById('alert-name');
   const error = document.getElementById('alert-error');
   setFieldError(nameInput, data.name.length >= 3 ? '' : 'Please give your alert a name (min. 3 characters).');
-  const hasCriteria = data.keywords || data.type !== 'all' || data.location || data.modes.length || data.skills.length;
-  error.textContent = hasCriteria ? '' : 'Choose at least one criterion (keywords, type, location, work mode or skills).';
+  const hasCriteria = data.keywords || data.type !== 'all' || data.location || data.modes.length || profileSkills().length;
+  error.textContent = hasCriteria ? '' : 'Choose at least one criterion (keywords, type, location or work mode), or add skills to your profile.';
   return data.name.length >= 3 && hasCriteria;
 }
 
@@ -157,14 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!Auth.current()) return;
   fillFormOptions();
   renderAlerts();
-
-  document.getElementById('alert-skills').addEventListener('click', e => {
-    const chip = e.target.closest('[data-skill]');
-    if (!chip) return;
-    chip.classList.toggle('selected');
-    if (selectedSkills.has(chip.dataset.skill)) selectedSkills.delete(chip.dataset.skill);
-    else selectedSkills.add(chip.dataset.skill);
-  });
 
   // Create or Update
   document.getElementById('alert-form').addEventListener('submit', e => {
@@ -177,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Auth.update(u => {
         const alert = u.alerts.find(a => a.id === editingId);
         Object.assign(alert, data, { updatedAt: new Date().toISOString() });
+        delete alert.skills;   // alerts made before skills came from the profile
       });
       showToast('Alert updated.');
     } else {
