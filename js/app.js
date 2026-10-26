@@ -60,7 +60,7 @@ const Auth = {
     const user = {
       name: name.trim(), email, role, skills: skills || [], bio: '',
       passwordHash: await this.hash(password),
-      saved: [], applications: [], events: [], mentorRequests: [], alerts: [], projects: [], skillLevels: {},
+      saved: [], applications: [], events: [], mentorRequests: [], alerts: [], projects: [], skillLevels: {}, goals: [],
       createdAt: new Date().toISOString()
     };
     users.push(user);

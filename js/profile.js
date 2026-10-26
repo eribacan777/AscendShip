@@ -1,4 +1,4 @@
-// Profile page: account info, edit profile, applications, saved items, events, alerts, projects and mentor requests.
+// Profile page: account info, edit profile, applications, saved items, events, alerts, projects, goals and mentor requests.
 // Skills are managed on the My Skills page (js/skills.js).
 
 if (!Auth.current()) {
@@ -96,6 +96,17 @@ function renderProfile() {
           <p class="text-sm text-gray-400">${escapeHtml(pr.type)} · ${pr.techs.map(escapeHtml).join(', ')}</p>
         </div>`, '<a href="Portfolio.html" class="text-sm text-violet-400 hover:underline">Manage</a>')).join('')
     : emptyRow('No projects yet.', 'Portfolio.html', 'Add your first project &rarr;');
+
+  // Learning goals (unfinished first)
+  const goals = [...(user.goals || [])].sort((a, b) => (a.progress >= 100) - (b.progress >= 100) || a.deadline.localeCompare(b.deadline));
+  document.getElementById('my-goals').innerHTML = goals.length
+    ? goals.map(g => listRow(`
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold">${escapeHtml(g.title)}</p>
+          <p class="text-sm text-gray-400">${escapeHtml(g.skill)} · deadline ${formatDate(g.deadline)}</p>
+          <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden"><div class="h-full ${g.progress >= 100 ? 'bg-green' : 'bg-violet-500'}" style="width:${g.progress}%"></div></div>
+        </div>`, `<span class="text-sm font-semibold">${g.progress}%</span>`)).join('')
+    : emptyRow('No learning goals yet.', 'Goals.html', 'Set your first goal &rarr;');
 
   // Mentor requests
   document.getElementById('my-mentors').innerHTML = user.mentorRequests.length
