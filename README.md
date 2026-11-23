@@ -2,6 +2,8 @@
 
 AscendShip is a career platform for early-career tech talent (students, recent graduates and career switchers). It lists internships and junior jobs, matches them to your skills, and adds a community, mentors and events.
 
+**Live app:** https://eribacan777.github.io/AscendShip/
+
 ## Features
 
 - **Accounts:** sign up and sign in with form validation. Passwords are stored as SHA-256 hashes.
